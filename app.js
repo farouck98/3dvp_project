@@ -1,24 +1,20 @@
-const info = document.querySelector('.infos')
+// app.js
 
-const allBtns = document.querySelectorAll('input[type=button]')
-
-function val(resultat){
-    form.fenetre.value = form.fenetre.value + resultat
+function val(resultat) {
+    document.forms['form'].elements['fenetre'].value += resultat;
 }
 
-function calcule(){
-    if(form.fenetre.value == ""){
-        info.innerText = `Veuillez écrire un chiffre`;
-        allBtns.forEach(btn => {
-            btn.addEventListener('click', function(){
-                info.innerText = ""
-            })
-        })
-    }else {
-        form.fenetre.value = eval(form.fenetre.value);
-        info.innerText = ""
+function calcule() {
+    const fenetre = document.forms['form'].elements['fenetre'];
+    try {
+        fenetre.value = eval(fenetre.value);
+    } catch (e) {
+        fenetre.value = 'Error';
     }
 }
-function suppr(){
-    form.fenetre.value = "";
+
+function suppr() {
+    document.forms['form'].elements['fenetre'].value = "";
 }
+
+module.exports = { val, calcule, suppr };
